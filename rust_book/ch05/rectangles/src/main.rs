@@ -79,6 +79,9 @@ fn area_struct(rect: &Rectangle) -> u32 {
 }
 
 impl Rectangle {
+    // 关联函数:允许在 impl 块中定义 不 以 self 作为参数的函数; 关联函数任然是函数而不是防范
+    // 关联函数经常被用作返回一个结构体新实例的构造函数；
+    // 使用结构体名和 :: 语法来调用这个关联函数
     fn square(size: u32) -> Rectangle {
         Rectangle {
             width: size,
