@@ -1,9 +1,19 @@
+// 常量
+const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
+
+// 静态全局变量
+static G1: i32 = 0; // 不可变
+static mut G2: i32 = 1; // 可变
+
 fn main() {
     // 变量
     demo_variables();
 
     // 常量
     demo_const();
+
+    // 静态变量
+    demo_static();
 
     // 变量遮蔽
     demo_shadow();
@@ -26,8 +36,6 @@ fn demo_variables() {
 }
 
 fn demo_const() {
-    const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
-
     println!("THREE_HOURS_IN_SECONDS is: {}", THREE_HOURS_IN_SECONDS);
 }
 
@@ -46,4 +54,15 @@ fn demo_shadow() {
     let spaces = "   ";
     let spaces = spaces.len();
     println!("The value of spaces is: {}", spaces);
+}
+
+fn demo_static() {
+    println!("The value of G1 is: {}", G1);
+
+    // 可变静态变量（全局变量）无论读写都必须用 unsafe 修饰
+    unsafe {
+        println!("The value of G2 is: {}", G2);
+        G2 = 2;
+        println!("The value of G2 is: {}", G2);
+    }
 }
