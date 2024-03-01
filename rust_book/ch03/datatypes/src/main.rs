@@ -1,3 +1,5 @@
+use std::io;
+
 fn main() {
     demo_u32();
     demo_f64();
@@ -93,8 +95,33 @@ fn demo_tuple() {
 
 fn demo_array() {
     // 数组的每个元素必须具有相同的类型。数组具有固定长度。
+    // 数组分配在栈内存上
 
-    // let a = [1, 2, 3, 4, 5];
+    let a = [1, 2, 3, 4, 5];
+    println!("The array of a is: {}", a[0]);
+
+    // 使用方括号编写数组的类型，[类型 分号 元素数]
+    let aa: [i32; 5] = [1, 2, 3, 4, 5];
+    println!("The array of aa is: {}", aa[1]);
+    // 为每个元素创建包含相同值的数组：[初始值 分号 长度]
+    let aaa = [3; 5]; // 更简洁（let a = [3, 3, 3, 3, 3];）
+    println!("The array of aaa is: {}", aaa[2]);
+
+    // 运行时检查：当使用索引访问元素时，Rust 将检查你指定的索引是否小于数组长度。如果索引大于或等于数组长度，Rust 会出现 panic。
+    let mut index = String::new();
+    io::stdin()
+        .read_line(&mut index)
+        .expect("Failed to read line");
+
+    let index: usize = index
+        .trim()
+        .parse()
+        .expect("Index entered was not a number");
+    let element = a[index];
+    println!(
+        "The value of the element at index {} is: {}",
+        index, element
+    )
 }
 
 // ------------------------- 👆🏻 复合类型 👆🏻 -------------------------
