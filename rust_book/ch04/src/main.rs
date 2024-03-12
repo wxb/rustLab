@@ -11,6 +11,7 @@ fn main() {
     demo_ownership();
     demo_returnvalue();
     demo_borrow();
+    demo_strslice();
 }
 
 // 内存与分配
@@ -151,4 +152,35 @@ fn calculate_length(s: &String) -> usize {
 
 fn change(some_string: &mut String) {
     some_string.push_str(", world");
+}
+
+// 字符串slice
+fn demo_strslice() {
+    let mut s = String::from("hello world");
+    let word = first_word(&s);
+
+    // 当拥有某值的不可变引用时，就不能再获取一个可变引用
+    s.clear();
+
+    println!("the first word is: {}", word);
+
+    // 其他类型的slice
+    let a = [1, 2, 3, 4, 5];
+    // 类型是 &[i32],跟字符串 slice 的工作方式一样，通过存储第一个集合元素的引用和一个集合总长度
+    let slice = &a[1..3];
+
+    println!("the first word is: {:?}", slice);
+}
+
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    // &str 是一个不可变引用。
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[..i];
+        }
+    }
+
+    &s[..]
 }
